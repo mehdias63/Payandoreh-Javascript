@@ -2,10 +2,12 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const showContentBtn = document.querySelector('.show-content-btn')
 	const mainContent = document.getElementById('main-content')
+	const searchInput = document.getElementById('search')
 
 	showContentBtn.addEventListener('click', () => {
-		mainContent.style.display = 'block'
-		showContentBtn.style.display = 'none'
+		mainContent.classList.remove('hidden')
+		searchInput.classList.remove('hidden')
+		showContentBtn.classList.add('hidden')
 	})
 
 	let transactions = []
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 		.catch(error => console.log('خطا در دریافت اطلاعات: ', error))
 
-	document.getElementById('search').addEventListener('input', e => {
+	searchInput.addEventListener('input', e => {
 		const value = e.target.value.trim()
 		filteredTransactions = transactions.filter(transaction =>
 			transaction.refId.toString().includes(value),

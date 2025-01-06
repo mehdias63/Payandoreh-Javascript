@@ -16,22 +16,20 @@
 	</head>
 
 	<body>
-		<div
-			style="text-align: center; margin-top: 100px"
-			class="show-content-btn"
-		>
-			<h2 class="title">لیست تراکنش‌ها</h2>
-			<button class="show-content-btn">نمایش تراکنش‌ها</button>
+		<div class="navbar">
+			<h1 class="navbar-title">لیست تراکنش‌ها</h1>
+			<input
+				type="text"
+				id="search"
+				placeholder="جستجو تراکنش‌..."
+				class="hidden"
+			/>
 		</div>
-		<div class="container" id="main-content" style="display: none">
-			<div class="navbar">
-				<h1 class="title">لیست تراکنش‌ها</h1>
-				<input
-					type="text"
-					id="search"
-					placeholder="جستجو تراکنش‌ها..."
-				/>
-			</div>
+		<div class="show-content">
+			<button class="show-content-btn">بارگذاری تراکنش ها</button>
+		</div>
+		<div class="container hidden" id="main-content">
+			<h2 class="container-title">لیست تراکنش های شما</h2>
 			<div id="transactions-form">
 				<div class="header">
 					<span class="header-text">ردیف</span>

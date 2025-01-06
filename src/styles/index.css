@@ -45,6 +45,7 @@
 	--color-red-500: rgb(239, 68, 68);
 	--color-red-300: rgb(252, 165, 165);
 	--color-red-100: rgb(254, 226, 226);
+	--color-aqua: rgb(0, 155, 175);
 }
 
 html {
@@ -55,22 +56,32 @@ body {
 	direction: rtl;
 	background-color: var(--color-secondary-100);
 }
-input {
+input,
+button {
 	font-family: Vazirmatn;
 }
 
 .container {
-	width: 80%;
-	max-width: 150rem;
-	margin: 8rem auto;
+	max-width: 120rem;
+	margin: 3rem auto;
 	background-color: var(--color-secondary-0);
-	padding: 20px;
+	padding: 1rem;
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.hidden {
+	display: none;
+}
 
-.title {
+.navbar-title {
 	text-align: right;
+	color: var(--color-secondary-500);
+	font-size: 2rem;
+}
+.container-title {
+	color: var(--color-secondary-400);
+	margin-bottom: 2.5rem;
+	font-size: 1rem;
 }
 
 .header,
@@ -88,17 +99,38 @@ input {
 }
 .navbar {
 	display: flex;
-	margin: 30px 0;
+	max-width: 120rem;
+	margin: 1rem auto;
+	margin-top: 7rem;
 	align-items: center;
 	justify-content: space-between;
+	gap: 5rem;
 }
-
+.show-content {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.show-content-btn {
+	padding: 2rem 10rem;
+	background-color: var(--color-aqua);
+	border: none;
+	color: var(--color-secondary-0);
+	font-weight: bold;
+	font-size: 1.7rem;
+	border-radius: 8px;
+	cursor: pointer;
+	letter-spacing: 1px;
+	margin-top: 20rem;
+}
+input::placeholder {
+	font-size: 1rem;
+	color: var(--color-secondary-400);
+}
 .transaction-row {
-	border-bottom: 1px solid var(--color-secondary-200);
-}
-
-.transaction-row:last-child {
-	border-bottom: none;
+	border: 1px solid var(--color-secondary-200);
+	border-top: none;
 }
 
 .success {
@@ -162,6 +194,18 @@ input {
 	.sort {
 		gap: 10px;
 	}
+	.navbar-title {
+		font-size: 2.5rem;
+	}
+	.container {
+		padding: 2rem;
+	}
+	.container-title {
+		font-size: 1.4rem;
+	}
+	input::placeholder {
+		font-size: 1.5rem;
+	}
 }
 @media (min-width: 1024px) {
 	.transaction-text,
@@ -174,5 +218,14 @@ input {
 	}
 	.sort {
 		gap: 13px;
+	}
+	.navbar-title {
+		font-size: 3rem;
+	}
+	.container {
+		padding: 3rem;
+	}
+	.container-title {
+		font-size: 1.8rem;
 	}
 }
