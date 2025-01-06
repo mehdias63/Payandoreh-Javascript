@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>تسک دوره جاوااسکریپت</title>
+		<link rel="stylesheet" href="./styles/index.css" />
+		<script
+			src="https://kit.fontawesome.com/83a473dd65.js"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	</head>
+
+	<body>
+		<div
+			style="text-align: center; margin-top: 100px"
+			class="show-content-btn"
+		>
+			<h2 class="title">لیست تراکنش‌ها</h2>
+			<button class="show-content-btn">نمایش تراکنش‌ها</button>
+		</div>
+		<div class="container" id="main-content" style="display: none">
+			<div class="navbar">
+				<h1 class="title">لیست تراکنش‌ها</h1>
+				<input
+					type="text"
+					id="search"
+					placeholder="جستجو تراکنش‌ها..."
+				/>
+			</div>
+			<div id="transactions-form">
+				<div class="header">
+					<span class="header-text">ردیف</span>
+					<span class="header-text">نوع تراکنش</span>
+					<span class="sort header-text"
+						>مبلغ
+						<span id="sort-price"
+							><i class="fa-solid fa-chevron-down"></i
+						></span>
+					</span>
+					<span class="header-text">شماره پیگیری</span>
+					<span class="sort header-text"
+						>تاریخ تراکنش
+						<span id="sort-date"
+							><i class="fa-solid fa-chevron-down"></i
+						></span>
+					</span>
+				</div>
+				<div id="transactions-body"></div>
+			</div>
+		</div>
+		<script src="./js/index.js"></script>
+	</body>
+</html>
