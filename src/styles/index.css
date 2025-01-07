@@ -140,6 +140,10 @@ input::placeholder {
 .error {
 	color: var(--color-error);
 }
+.rotate {
+	transform: rotate(180deg);
+	transition: transform 0.3s linear;
+}
 #search {
 	width: 50%;
 	padding: 12px 15px;

@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const showContentBtn = document.querySelector('.show-content-btn')
 	const mainContent = document.getElementById('main-content')
 	const searchInput = document.getElementById('search')
+	const sortPrice = document.getElementById('sort-price')
+	const sortDate = document.getElementById('sort-date')
 
 	showContentBtn.addEventListener('click', () => {
 		mainContent.classList.remove('hidden')
@@ -12,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	let transactions = []
 	let filteredTransactions = []
-	let isPriceSorted = true
-	let isDateSorted = true
+	let isPriceSortedAsc = true
+	let isDateSortedAsc = true
 
 	axios
 		.get('http://localhost:3000/transactions')
@@ -31,25 +33,26 @@ document.addEventListener('DOMContentLoaded', () => {
 		)
 		renderTransactions(filteredTransactions)
 	})
-
-	document
-		.getElementById('sort-price')
-		.addEventListener('click', () => {
-			filteredTransactions.sort((a, b) => {
-				return isPriceSorted ? b.price - a.price : a.price - b.price
-			})
-			isPriceSorted = !isPriceSorted
-			renderTransactions(filteredTransactions)
+	sortPrice.addEventListener('click', e => {
+		filteredTransactions.sort((a, b) => {
+			return isPriceSortedAsc ? b.price - a.price : a.price - b.price
 		})
-	document
-		.getElementById('sort-date')
-		.addEventListener('click', () => {
-			filteredTransactions.sort((a, b) => {
-				return isDateSorted ? b.date - a.date : a.date - b.date
-			})
-			isDateSorted = !isDateSorted
-			renderTransactions(filteredTransactions)
+		isPriceSortedAsc = !isPriceSortedAsc
+		const icon = e.target
+			.closest('#sort-price')
+			.querySelector('.icon')
+		icon.classList.toggle('rotate')
+		renderTransactions(filteredTransactions)
+	})
+	sortDate.addEventListener('click', e => {
+		filteredTransactions.sort((a, b) => {
+			return isDateSortedAsc ? b.date - a.date : a.date - b.date
 		})
+		isDateSortedAsc = !isDateSortedAsc
+		const icon = e.target.closest('#sort-date').querySelector('.icon')
+		icon.classList.toggle('rotate')
+		renderTransactions(filteredTransactions)
+	})
 })
 
 function renderTransactions(data) {
@@ -87,7 +90,9 @@ function formatDate(timestamp) {
 	const date = new Date(timestamp)
 	return (
 		date.toLocaleDateString('fa-IR') +
+		'&nbsp' +
 		' ساعت ' +
+		'&nbsp' +
 		date.toLocaleTimeString('fa-IR', {
 			hour: '2-digit',
 			minute: '2-digit',
