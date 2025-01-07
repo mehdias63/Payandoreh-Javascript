@@ -88,6 +88,9 @@ function formatDate(timestamp) {
 	return (
 		date.toLocaleDateString('fa-IR') +
 		' ساعت ' +
-		date.toLocaleTimeString('fa-IR')
+		date.toLocaleTimeString('fa-IR', {
+			hour: '2-digit',
+			minute: '2-digit',
+		})
 	)
 }
