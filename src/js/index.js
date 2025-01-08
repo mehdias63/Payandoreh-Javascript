@@ -1,4 +1,8 @@
 // http://localhost:3000/transactions
+let isPriceSortedAsc = true
+let isDateSortedAsc = true
+let activeSort = ''
+
 document.addEventListener('DOMContentLoaded', () => {
 	const showContentBtn = document.querySelector('.show-content-btn')
 	const mainContent = document.getElementById('main-content')
@@ -10,50 +14,43 @@ document.addEventListener('DOMContentLoaded', () => {
 		mainContent.classList.remove('hidden')
 		searchInput.classList.remove('hidden')
 		showContentBtn.classList.add('hidden')
+		fetchTransactions()
 	})
-
-	let transactions = []
-	let filteredTransactions = []
-	let isPriceSortedAsc = true
-	let isDateSortedAsc = true
-
-	axios
-		.get('http://localhost:3000/transactions')
-		.then(response => {
-			transactions = response.data
-			filteredTransactions = [...transactions]
-			renderTransactions(filteredTransactions)
-		})
-		.catch(error => console.log('خطا در دریافت اطلاعات: ', error))
 
 	searchInput.addEventListener('input', e => {
-		const value = e.target.value.trim()
-		filteredTransactions = transactions.filter(transaction =>
-			transaction.refId.toString().includes(value),
-		)
-		renderTransactions(filteredTransactions)
+		fetchTransactions(e.target.value)
 	})
-	sortPrice.addEventListener('click', e => {
-		filteredTransactions.sort((a, b) => {
-			return isPriceSortedAsc ? b.price - a.price : a.price - b.price
-		})
+
+	sortPrice.addEventListener('click', () => {
 		isPriceSortedAsc = !isPriceSortedAsc
-		const icon = e.target
-			.closest('#sort-price')
-			.querySelector('.icon')
-		icon.classList.toggle('rotate')
-		renderTransactions(filteredTransactions)
+		activeSort = 'price'
+		fetchTransactions(searchInput.value)
+		updateIconRotation(sortPrice, isPriceSortedAsc)
 	})
-	sortDate.addEventListener('click', e => {
-		filteredTransactions.sort((a, b) => {
-			return isDateSortedAsc ? b.date - a.date : a.date - b.date
-		})
+
+	sortDate.addEventListener('click', () => {
 		isDateSortedAsc = !isDateSortedAsc
-		const icon = e.target.closest('#sort-date').querySelector('.icon')
-		icon.classList.toggle('rotate')
-		renderTransactions(filteredTransactions)
+		activeSort = 'date'
+		fetchTransactions(searchInput.value)
+		updateIconRotation(sortDate, isDateSortedAsc)
 	})
 })
+
+function fetchTransactions(query = '') {
+	let url = `http://localhost:3000/transactions?refId_like=${query}`
+	if (activeSort === 'price') {
+		url += `&_sort=price&_order=${isPriceSortedAsc ? 'asc' : 'desc'}`
+	} else if (activeSort === 'date') {
+		url += `&_sort=date&_order=${isDateSortedAsc ? 'asc' : 'desc'}`
+	}
+
+	axios
+		.get(url)
+		.then(response => {
+			renderTransactions(response.data)
+		})
+		.catch(error => console.log('خطا در دریافت اطلاعات: ', error))
+}
 
 function renderTransactions(data) {
 	const transactionBody = document.getElementById('transactions-body')
@@ -81,9 +78,17 @@ function renderTransactions(data) {
 				transaction.date,
 			)}</span>
     `
-
 		transactionBody.appendChild(result)
 	})
+}
+
+function updateIconRotation(element, isAsc) {
+	const icon = element.querySelector('.icon')
+	if (isAsc) {
+		icon.classList.remove('rotate')
+	} else {
+		icon.classList.add('rotate')
+	}
 }
 
 function formatDate(timestamp) {
